@@ -1,0 +1,74 @@
+<!--index.wxml-->
+<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view style="margin: 20rpx;">
+    <view style="width: 100%; padding: 5rpx;">
+      <button bindtap="chooseLocation">选择位置</button>
+      <radio-group bindchange="chooseTypeChange" style="margin:10rpx auto;">
+        <label>
+          <radio value="poi" checked="{{true}}"/>Poi选择位置
+          <radio value="map" checked="{{false}}"/>Map选择位置
+        </label>
+      </radio-group>
+      <view style="margin-top: 10rpx;">
+        <view>
+          <text>经度：{{location.desLongitude}}</text>
+        </view>
+        <view>
+          <text>纬度：{{location.desLatitude}}</text>
+        </view>
+        <view>
+          <text>详情地址：{{location.desAddress}}</text>
+        </view>
+      </view>
+    </view>
+    <button style="margin: 20rpx auto;" bindtap="openLocation">查看当前位置</button>
+    <view>
+      <button bindtap="getLocation">获取当前位置信息</button>
+      <radio-group bindchange="radioChange" style="margin:10rpx auto;">
+        <label>
+          <radio value="{{false}}" checked="{{true}}"/>默认
+          <radio value="{{true}}" checked="{{false}}"/>高精定位
+        </label>
+      </radio-group>
+      <view>
+        <view>
+          <text>精度：{{location.accuracy}}</text>
+        </view>
+        <view>
+          <text>经度：{{location.longitude}}</text>
+        </view>
+        <view>
+          <text>纬度：{{location.latitude}}</text>
+        </view>
+      </view>
+    </view>
+    <view style="margin: 20rpx auto;">
+      <button bindtap="computePosition">计算打卡范围</button>
+      <view>
+        定位范围：<input type="number" placeholder="请输入打卡半径" bind:change="onDistanceChange" />
+      </view>
+      <text>{{location.isOutOfRange?'不在打卡范围':'在打卡范围'}},</text>
+      <text>距离：{{location.distan}}米</text>
+    </view>
+    <view>
+      <map
+      id="myMap"
+      style="width: 100%; height: 300px;"
+      latitude="{{location.desLatitude}}"
+      longitude="{{location.desLongitude}}"
+      markers="{{markers}}"
+      circles="{{circles}}"
+      scale="16"
+    >
+    
+    </map>
+    </view>
+    <button type="primary" bindtap="login">登录</button>
+
+    <button type="primary" bindtap="clickFn">订阅消息</button>
+
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">手机号快速验证组件</button>
+    <!-- <button open-type="liveActivity" type="primary" createliveactivity="liveActivityHandler" activity-type="1001">打卡</button> -->
+  </view>
+</scroll-view>
